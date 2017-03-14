@@ -22,11 +22,11 @@ import javax.swing.border.LineBorder;
 public class Tablero {
 
 	private final JPanel gui = new JPanel(new BorderLayout(3, 3));
-    private JButton[][] boardSquares = new JButton[8][8];
+    private JButton[][] boardSquares = new JButton[9][9];
     private JPanel board;
     private final JLabel message = new JLabel(
             "Que gane el mejor!");
-    private static final String COLS = "ABCDEFGH";
+    private static final String COLS = "ABCDEFGHI";
 
     Tablero() {
         initializeGui();
@@ -34,7 +34,7 @@ public class Tablero {
 
     public final void initializeGui() {
         // set up the main GUI
-        gui.setBorder(new EmptyBorder(5, 5, 5, 5));
+        gui.setBorder(new EmptyBorder(30, 30, 30, 30));
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
         gui.add(tools, BorderLayout.PAGE_START);
@@ -48,7 +48,7 @@ public class Tablero {
 
         //gui.add(new JLabel("?"), BorderLayout.LINE_START);
 
-        board = new JPanel(new GridLayout(0, 9));
+        board = new JPanel(new GridLayout(0, 10));
         board.setBorder((Border) new LineBorder(Color.BLACK));
         gui.add(board);
 
@@ -61,7 +61,7 @@ public class Tablero {
                 // our chess pieces are 64x64 px in size, so we'll
                 // 'fill this in' using a transparent icon..
                 ImageIcon icon = new ImageIcon(
-                        new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB));
+                        new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB));
                 b.setIcon(icon);
                 if ((jj % 2 == 1 && ii % 2 == 1)
                         //) {
@@ -77,14 +77,14 @@ public class Tablero {
         //fill the chess board
         board.add(new JLabel(""));
         // fill the top row
-        for (int ii = 0; ii < 8; ii++) {
+        for (int ii = 0; ii < 9; ii++) {
             board.add(
                     new JLabel(COLS.substring(ii, ii + 1),
                     SwingConstants.CENTER));
         }
         // fill the black non-pawn piece row
-        for (int ii = 0; ii < 8; ii++) {
-            for (int jj = 0; jj < 8; jj++) {
+        for (int ii = 0; ii < 9; ii++) {
+            for (int jj = 0; jj < 9; jj++) {
                 switch (jj) {
                     case 0:
                         board.add(new JLabel("" + (ii + 1),
@@ -112,7 +112,7 @@ public class Tablero {
                 Tablero cb =
                         new Tablero();
 
-                JFrame f = new JFrame("ChessChamp");
+                JFrame f = new JFrame("Hasami Shogi");
                 f.add(cb.getGui());
                 f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 f.setLocationByPlatform(true);
