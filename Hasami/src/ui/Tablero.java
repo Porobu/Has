@@ -3,9 +3,14 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -52,24 +57,43 @@ public class Tablero {
         board.setBorder((Border) new LineBorder(Color.BLACK));
         gui.add(board);
 
-        // create the chess board squares
+        // create the board squares
         Insets buttonMargin = new Insets(0,0,0,0);
         for (int ii = 0; ii < boardSquares.length; ii++) {
             for (int jj = 0; jj < boardSquares[ii].length; jj++) {
                 JButton b = new JButton();
                 b.setMargin(buttonMargin);
-                // our chess pieces are 64x64 px in size, so we'll
-                // 'fill this in' using a transparent icon..
-                ImageIcon icon = new ImageIcon(
-                        new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB));
-                b.setIcon(icon);
-                if ((jj % 2 == 1 && ii % 2 == 1)
-                        //) {
-                        || (jj % 2 == 0 && ii % 2 == 0)) {
+                ImageIcon icon = null;
+                if(ii==0 ||ii==1){
+                	icon = new ImageIcon(getClass().getResource("p1.png"));
+                }else if(ii==boardSquares.length-1 ||ii==boardSquares.length-2){
+                	icon = new ImageIcon(getClass().getResource("p2.png"));
+                }else{
+                	icon = new ImageIcon(new BufferedImage(50, 50, BufferedImage.TYPE_INT_ARGB));
+                }
+                Image img = icon.getImage();
+            	Image newImage = img.getScaledInstance( 50, 50,  java.awt.Image.SCALE_SMOOTH);
+            	icon = new ImageIcon(newImage);
+				b.setIcon(icon);
+                if ((jj % 2 == 1 && ii % 2 == 1) || (jj % 2 == 0 && ii % 2 == 0)) {
                     b.setBackground(Color.WHITE);
                 } else {
                     b.setBackground(Color.BLACK);
                 }
+                b.addActionListener(new ActionListener(){
+                	JButton pieceToMove = null;
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						JButton button = (JButton)e.getSource();
+						if(pieceToMove == null){
+							pieceToMove = button;
+						}else{
+							button.setIcon(pieceToMove.getIcon());
+							pieceToMove = null;
+						}
+					}
+                	
+                });
                 boardSquares[jj][ii] = b;
             }
         }
@@ -83,7 +107,7 @@ public class Tablero {
                     SwingConstants.CENTER));
         }
         // fill the black non-pawn piece row
-        for (int ii = 0; ii < 9; ii++) {
+        for (int ii = 0; ii < 9; ii++) {//aqui el actionListener(creo)
             for (int jj = 0; jj < 9; jj++) {
                 switch (jj) {
                     case 0:
