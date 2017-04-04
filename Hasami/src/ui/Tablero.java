@@ -43,28 +43,25 @@ public class Tablero {
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
         gui.add(tools, BorderLayout.PAGE_START);
-        tools.add(new JButton("Nueva partida")); // TODO - add functionality!
-        tools.add(new JButton("Guardar")); // TODO - add functionality!
-        //tools.add(new JButton("Restore")); // TODO - add functionality!
+        tools.add(new JButton("Nueva partida")); // boton nueva partida, por implementar
+        tools.add(new JButton("Guardar")); // boton guardar partida, por implementar
         tools.addSeparator();
-        tools.add(new JButton("Salir")); // TODO - add functionality!
+        tools.add(new JButton("Salir")); //dispose on close, por implementar
         tools.addSeparator();
         tools.add(message);
-
-        //gui.add(new JLabel("?"), BorderLayout.LINE_START);
 
         board = new JPanel(new GridLayout(0, 10));
         board.setBorder((Border) new LineBorder(Color.BLACK));
         gui.add(board);
 
-        // create the board squares
+        // crear tablero como matriz de botones
         Insets buttonMargin = new Insets(0,0,0,0);
         for (int ii = 0; ii < boardSquares.length; ii++) {
             for (int jj = 0; jj < boardSquares[ii].length; jj++) {
                 JButton b = new JButton();
                 b.setMargin(buttonMargin);
                 ImageIcon icon = null;
-                if(ii==0 ||ii==1){
+                if(ii==0 ||ii==1){ // añadir las piezas
                 	icon = new ImageIcon(getClass().getResource("p1.png"));
                 }else if(ii==boardSquares.length-1 ||ii==boardSquares.length-2){
                 	icon = new ImageIcon(getClass().getResource("p2.png"));
