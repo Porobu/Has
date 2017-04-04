@@ -8,9 +8,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -32,6 +31,7 @@ public class Tablero {
     private final JLabel message = new JLabel(
             "Que gane el mejor!");
     private static final String COLS = "ABCDEFGHI";
+    private static JButton pieceToMove = null;
 
     Tablero() {
         initializeGui();
@@ -81,15 +81,20 @@ public class Tablero {
                     b.setBackground(Color.BLACK);
                 }
                 b.addActionListener(new ActionListener(){
-                	JButton pieceToMove = null;
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						JButton button = (JButton)e.getSource();
+						button.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 						if(pieceToMove == null){
 							pieceToMove = button;
 						}else{
+							//if(esposible)
+								
 							button.setIcon(pieceToMove.getIcon());
+							pieceToMove.setIcon(null);
 							pieceToMove = null;
+							emptyTheBorder();
+							//come la ficha()
 						}
 					}
                 	
@@ -118,6 +123,14 @@ public class Tablero {
                 }
             }
         }
+    }
+    
+    private void emptyTheBorder(){
+    	for (int i = 0; i < boardSquares.length; i++) {
+			for (int j = 0; j < boardSquares[i].length; j++) {
+				boardSquares[i][j].setBorder(null);
+			}
+		}
     }
 
     public final JComponent getChessBoard() {
