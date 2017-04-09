@@ -43,7 +43,7 @@ public class Tablero {
 	// Este metodo inicializa la parte grafica del juego
 	//*
     public final void initializeGui() {
-        // set up the main GUI
+        // Inicializa la pantalla principal
         gui.setBorder(new EmptyBorder(30, 30, 30, 30));
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
