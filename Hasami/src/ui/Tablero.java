@@ -25,6 +25,7 @@ import javax.swing.border.LineBorder;
 
 public class Tablero {
 
+	//Variables de la clase
 	private final JPanel gui = new JPanel(new BorderLayout(3, 3));
     private JButton[][] boardSquares = new JButton[9][9];
     private JPanel board;
@@ -33,10 +34,14 @@ public class Tablero {
     private static final String COLS = "ABCDEFGHI";
     private static JButton pieceToMove = null;
 
+	//Metodo para inicializar la clase
     Tablero() {
         initializeGui();
     }
-
+	
+	//*
+	// Este metodo inicializa la parte grafica del juego
+	//*
     public final void initializeGui() {
         // set up the main GUI
         gui.setBorder(new EmptyBorder(30, 30, 30, 30));
@@ -100,15 +105,15 @@ public class Tablero {
             }
         }
 
-        //fill the chess board
+        //Llena el tablero con fichas
         board.add(new JLabel(""));
-        // fill the top row
+        // Llena la fila de arriba
         for (int ii = 0; ii < 9; ii++) {
             board.add(
                     new JLabel(COLS.substring(ii, ii + 1),
                     SwingConstants.CENTER));
         }
-        // fill the black non-pawn piece row
+        // 
         for (int ii = 0; ii < 9; ii++) {//aqui el actionListener(creo)
             for (int jj = 0; jj < 9; jj++) {
                 switch (jj) {
@@ -151,10 +156,10 @@ public class Tablero {
                 f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 f.setLocationByPlatform(true);
 
-                // ensures the frame is the minimum size it needs to be
-                // in order display the components within it
+                // 
+                // Ajusta los margenes
                 f.pack();
-                // ensures the minimum size is enforced.
+                // 
                 f.setMinimumSize(f.getSize());
                 f.setVisible(true);
             }
